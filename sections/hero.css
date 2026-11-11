@@ -1,0 +1,324 @@
+/*
+ * Herói — a composição das referências (palavra monumental atrás do retrato),
+ * definida aqui em CSS e materializada em 3D pela cena.
+ *
+ * A seção tem 2 telas de altura: a primeira é a cena fixa; a segunda é o
+ * percurso durante o qual a seção "Sobre" sobe e a cobre.
+ */
+.hero {
+  position: relative;
+  height: 200svh;
+
+  /* Largura do retrato e posição da palavra (paisagem). */
+  --portrait-w: min(65svh, 40vw);
+  /* O retrato sai da borda da tela: o rosto ganha respiro à esquerda. */
+  --portrait-x: clamp(1.25rem, 5.5vw, 6.5rem);
+  --portrait-y: clamp(0rem, 3svh, 2.5rem);
+  --word-left: calc(var(--portrait-x) + var(--portrait-w) * 0.8);
+  --word-top: 20svh;
+}
+
+.hero__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: clip;
+}
+
+/* ---------- Vãos da cena 3D ---------- */
+
+.hero__portrait {
+  position: absolute;
+  top: var(--portrait-y);
+  left: var(--portrait-x);
+  z-index: 1;
+  width: var(--portrait-w);
+  aspect-ratio: 941 / 1672;
+}
+
+.hero__word {
+  --word-in-front: 0;
+
+  position: absolute;
+  top: var(--word-top);
+  left: var(--word-left);
+  z-index: 0;
+  width: min(100vw - var(--word-left) - var(--gutter), 140svh);
+  container-type: inline-size;
+}
+
+/* ---------- Alternativa sem WebGL (mesma composição, em CSS) ---------- */
+
+.hero__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.16) brightness(0.9);
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 52%, transparent 86%),
+    linear-gradient(to right, transparent, #000 7%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 52%, transparent 86%),
+    linear-gradient(to right, transparent, #000 7%);
+  mask-composite: intersect;
+}
+
+.hero__word-text {
+  display: block;
+  font-size: calc(100cqw / var(--word-em));
+  line-height: var(--word-cap);
+  letter-spacing: var(--word-tracking);
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(to bottom, var(--carmim) 18%, var(--vinho) 78%, #140306 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 70% at 62% 42%, rgba(193, 18, 31, 0.22), transparent 70%),
+    radial-gradient(40% 50% at 18% 30%, rgba(59, 7, 13, 0.7), transparent 75%);
+}
+
+/* Com a cena 3D ativa, o DOM só reserva o espaço. */
+.has-gl .hero__portrait img,
+.has-gl .hero__word-text,
+.has-gl .hero__backdrop {
+  visibility: hidden;
+}
+
+/* ---------- Conteúdo ---------- */
+
+.hero__content {
+  --p: 0;
+
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: calc(1 - var(--p) * 2.2);
+  transform: translate3d(0, calc(var(--p) * -9svh), 0);
+  pointer-events: none;
+}
+
+.hero__content a {
+  pointer-events: auto;
+}
+
+.hero__name {
+  position: absolute;
+  left: calc(var(--word-left) + 1.2vw);
+  /* A linha de base do nome invade o topo das letras 3D. */
+  top: calc(var(--word-top) - 0.74em);
+  font-size: clamp(3.5rem, 6svh + 4.6vw, 9.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--osso);
+  /* Máscara para a entrada das letras, com folga para o itálico não ser cortado. */
+  overflow: hidden;
+  padding: 0.12em 0.16em 0.22em 0.06em;
+  margin: -0.12em -0.16em -0.22em -0.06em;
+}
+
+.hero__name span {
+  display: inline-block;
+}
+
+.hero__base {
+  position: absolute;
+  left: var(--word-left);
+  right: var(--gutter);
+  bottom: clamp(1.5rem, 6.5svh, 4.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: var(--gap) clamp(2rem, 5vw, 5rem);
+  align-items: end;
+  padding-top: clamp(1rem, 2.4svh, 1.75rem);
+  border-top: 1px solid var(--fio);
+}
+
+.hero__intro {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 34rem;
+}
+
+.hero__role {
+  font-size: var(--step-1);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.hero__positioning {
+  color: var(--cinza);
+  max-width: 30rem;
+  text-wrap: pretty;
+}
+
+.hero__aside {
+  display: grid;
+  gap: 1.1rem;
+  justify-items: end;
+}
+
+.hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--step--1);
+  color: var(--osso);
+}
+
+.hero__status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--brasa);
+  box-shadow: 0 0 0 0 rgba(240, 53, 62, 0.6);
+  animation: status-pulse 2.6s ease-out infinite;
+}
+
+@keyframes status-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(240, 53, 62, 0.55);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 0.7rem rgba(240, 53, 62, 0);
+  }
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.hero__scroll {
+  position: absolute;
+  left: var(--gutter);
+  bottom: clamp(1.5rem, 6.5svh, 4.5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--step--1);
+  color: var(--osso);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.hero__scroll svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  transform: rotate(180deg);
+  animation: scroll-nudge 2.2s var(--ease-in-out) infinite;
+}
+
+@keyframes scroll-nudge {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -0.35rem;
+  }
+}
+
+/* ---------- Retrato (celulares e tablets em pé) ---------- */
+
+@media (max-aspect-ratio: 5/4), (max-width: 760px) {
+  .hero {
+    --portrait-w: min(100vw, 54svh);
+    --word-w: min(100vw - var(--gutter) * 2, 52svh);
+    /*
+     * Palavra centralizada; o retrato parte da borda esquerda dela, para o rosto
+     * ficar à esquerda do "Marcelo" (que é alinhado à direita da palavra).
+     */
+    --word-left: calc((100vw - var(--word-w)) / 2);
+    --portrait-x: calc(var(--word-left) + clamp(0px, 1.5vw, 0.75rem));
+    --portrait-y: 0px;
+    /*
+     * A palavra cruza o peito, logo abaixo do queixo — mas nunca desce sobre o
+     * bloco de apoio (≈ 15,5rem na base da tela), o que acontece em telas baixas.
+     */
+    --word-top: min(
+      var(--portrait-w) * 1.777 * 0.6,
+      100svh - 15.5rem - var(--word-w) / var(--word-aspect)
+    );
+  }
+
+  .hero__word {
+    --word-in-front: 1;
+
+    z-index: 2;
+    width: var(--word-w);
+  }
+
+  .hero__name {
+    left: auto;
+    /* Alinhado à borda direita do sobrenome. */
+    right: var(--word-left);
+    top: calc(var(--word-top) - 0.8em);
+    font-size: clamp(2.6rem, min(15vw, var(--word-w) * 0.2), 6rem);
+  }
+
+  .hero__base {
+    left: var(--gutter);
+    bottom: clamp(1rem, 3svh, 2rem);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    padding-top: 0.9rem;
+  }
+
+  .hero__intro {
+    gap: 0.45rem;
+  }
+
+  .hero__role {
+    font-size: var(--step-0);
+  }
+
+  .hero__positioning {
+    font-size: var(--step--1);
+  }
+
+  .hero__aside {
+    justify-items: start;
+    gap: 0.8rem;
+  }
+
+  .hero__actions {
+    justify-content: flex-start;
+  }
+
+  .hero__scroll {
+    display: none;
+  }
+
+  .hero__backdrop {
+    background: radial-gradient(90% 50% at 50% 58%, rgba(193, 18, 31, 0.2), transparent 70%);
+  }
+}
+
+/* Telas baixas: o apoio do herói fica mais enxuto. */
+@media (max-height: 700px) {
+  .hero__status {
+    display: none;
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero__positioning {
+    display: none;
+  }
+}

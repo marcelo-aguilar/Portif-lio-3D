@@ -1,0 +1,70 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-intro);
+  pointer-events: none;
+}
+
+.intro__slats {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+/* Uma lâmina por letra do sobrenome: a persiana abre como as letras se erguem. */
+.intro__slat {
+  flex: 1;
+  /* 1px de sobreposição evita frestas entre as lâminas. */
+  margin-right: -1px;
+  background: var(--breu);
+  transform-origin: center top;
+}
+
+.intro__center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.1rem;
+  text-align: center;
+}
+
+.intro__star {
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--brasa);
+  animation: intro-spin 2.4s var(--ease-in-out) infinite;
+}
+
+.intro__count {
+  font-size: clamp(4.5rem, 16vw, 11rem);
+  font-variant-numeric: tabular-nums;
+  color: var(--osso);
+}
+
+.intro__name {
+  display: grid;
+  gap: 0.2rem;
+  font-size: var(--step--1);
+  font-weight: 500;
+}
+
+.intro__name span {
+  font-weight: 400;
+  color: var(--cinza);
+}
+
+@keyframes intro-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(90deg) scale(1.35);
+  }
+
+  100% {
+    transform: rotate(180deg) scale(1);
+  }
+}

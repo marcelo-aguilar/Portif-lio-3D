@@ -1,0 +1,20 @@
+.lamp-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-lamp);
+  width: 46vmax;
+  height: 46vmax;
+  margin: -23vmax 0 0 -23vmax;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle closest-side,
+    rgba(240, 53, 62, 0.16),
+    rgba(193, 18, 31, 0.07) 42%,
+    rgba(193, 18, 31, 0) 100%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+}

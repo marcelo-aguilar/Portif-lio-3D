@@ -1,0 +1,52 @@
+/*
+ * Design tokens.
+ * Paleta extraída das referências: preto quente, um único vermelho em três
+ * profundidades (vinho → carmim → brasa) e o bege das serifadas da ref. 3.
+ */
+:root {
+  /* Cor */
+  --breu: #060405;
+  --breu-2: #0e090a;
+  --vinho: #3b070d;
+  --carmim: #c1121f;
+  --brasa: #f0353e;
+  --osso: #ede3d6;
+  --areia: #c9a88a;
+  --cinza: #9a8f89;
+  --fio: rgba(237, 227, 214, 0.14);
+  --fio-forte: rgba(237, 227, 214, 0.3);
+
+  /* Tipografia */
+  --font-display: 'Anton', 'Arial Narrow', Impact, sans-serif;
+  --font-serif: 'Bodoni Moda Variable', 'Bodoni MT', Didot, 'Times New Roman', serif;
+  --font-sans: 'Instrument Sans Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Escala tipográfica fluida */
+  --step--1: clamp(0.8125rem, 0.78rem + 0.14vw, 0.9375rem);
+  --step-0: clamp(1rem, 0.95rem + 0.22vw, 1.125rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.45vw, 1.5rem);
+  --step-2: clamp(1.5rem, 1.25rem + 1.1vw, 2.25rem);
+  --step-3: clamp(2rem, 1.4rem + 2.6vw, 3.75rem);
+  --step-4: clamp(2.75rem, 1.5rem + 5.4vw, 6.5rem);
+  --step-5: clamp(4rem, 0.8rem + 13.5vw, 14rem);
+
+  /* Espaço */
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --gap: clamp(1rem, 2vw, 2rem);
+  --section-y: clamp(5rem, 14vh, 11rem);
+  --nav-h: 4.5rem;
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Camadas */
+  --z-canvas: 0;
+  --z-content: 1;
+  --z-lamp: 40;
+  --z-nav: 50;
+  --z-menu: 60;
+  --z-dialog: 70;
+  --z-grain: 80;
+  --z-intro: 90;
+}

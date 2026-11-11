@@ -1,0 +1,149 @@
+/* Habilidades — seção transparente: janela para o sistema orbital 3D. */
+.skills {
+  padding-block: var(--section-y);
+}
+
+.skills__body {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  align-items: center;
+  margin-top: clamp(2rem, 6vh, 4rem);
+}
+
+.skills__stage {
+  grid-column: 1 / span 7;
+  aspect-ratio: 1 / 0.92;
+  max-height: 78svh;
+  width: 100%;
+  cursor: grab;
+  /* A rolagem vertical continua nativa; o arraste horizontal gira o sistema. */
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.skills__stage[data-dragging='true'] {
+  cursor: grabbing;
+}
+
+.skills__groups {
+  grid-column: 8 / -1;
+  display: grid;
+}
+
+.skill-group {
+  display: grid;
+  gap: 0.75rem;
+  padding-block: clamp(1rem, 2.6vh, 1.6rem);
+  border-top: 1px solid var(--fio);
+  transition:
+    opacity 0.5s var(--ease-out),
+    border-color 0.5s var(--ease-out);
+}
+
+.skill-group:last-child {
+  border-bottom: 1px solid var(--fio);
+}
+
+.skill-group[data-dim='true'] {
+  opacity: 0.36;
+}
+
+.skill-group[data-active='true'] {
+  border-top-color: var(--carmim);
+}
+
+.skill-group__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.skill-group__name {
+  font-size: var(--step-3);
+  transition: color 0.5s var(--ease-out);
+}
+
+.skill-group[data-active='true'] .skill-group__name {
+  color: var(--brasa);
+}
+
+.skill-group__note {
+  font-size: var(--step--1);
+  color: var(--cinza);
+  text-align: right;
+}
+
+.skill-group__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.25rem;
+  font-size: var(--step-0);
+}
+
+/* Marcador antes de cada item: linhas quebradas também começam alinhadas. */
+.skill-group__items li::before {
+  content: '';
+  display: inline-block;
+  width: 0.28rem;
+  height: 0.28rem;
+  margin-right: 0.6rem;
+  vertical-align: 0.18em;
+  background: var(--carmim);
+  transform: rotate(45deg);
+}
+
+.skills__languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem clamp(1.5rem, 4vw, 3.5rem);
+  margin-top: clamp(2.5rem, 7vh, 4.5rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--fio);
+}
+
+.skills__languages dt {
+  flex: 0 0 100%;
+  font-size: var(--step--1);
+  color: var(--cinza);
+}
+
+.skills__languages dd {
+  font-family: var(--font-serif);
+  font-size: var(--step-2);
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+.skills__languages dd .muted {
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  font-style: normal;
+  letter-spacing: 0;
+  margin-left: 0.4rem;
+}
+
+/* Sem a cena 3D, as listas ocupam a largura toda. */
+html:not(.has-gl) .skills__stage {
+  display: none;
+}
+
+html:not(.has-gl) .skills__groups {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .skills__stage {
+    grid-column: 1 / -1;
+    aspect-ratio: 1 / 1;
+    max-height: 62svh;
+    margin-inline: auto;
+  }
+
+  .skills__groups {
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+  }
+}

@@ -1,0 +1,144 @@
+/*
+ * Contato — preso ao fundo da janela, por baixo da Trajetória.
+ * Transparente: o sobrenome 3D aparece através dele.
+ */
+.contact {
+  --reveal: 1;
+
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  height: 100svh;
+  /* O deslocamento da revelação não pode aumentar a altura da página. */
+  overflow: clip;
+}
+
+.contact__inner {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto auto;
+  height: 100%;
+  padding-top: calc(var(--nav-h) + clamp(0.5rem, 3svh, 2.5rem));
+  padding-bottom: clamp(1rem, 2.5svh, 1.75rem);
+  /* Sobe e ganha presença conforme é revelado. */
+  opacity: calc(0.25 + var(--reveal) * 0.75);
+  transform: translate3d(0, calc((1 - var(--reveal)) * 9svh), 0);
+}
+
+.contact__top {
+  display: grid;
+  align-content: center;
+  gap: clamp(0.75rem, 2svh, 1.5rem);
+}
+
+.contact__heading {
+  font-size: clamp(2.75rem, 3vw + 5svh, 8rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.contact__lead {
+  max-width: 34rem;
+  font-size: var(--step-1);
+  line-height: 1.4;
+  color: var(--cinza);
+  text-wrap: pretty;
+}
+
+.contact__ways {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding-block: clamp(0.9rem, 2.4svh, 1.5rem);
+  border-top: 1px solid var(--fio);
+}
+
+.contact__email {
+  font-size: clamp(1.15rem, 0.8rem + 2vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  background: linear-gradient(var(--brasa), var(--brasa)) 0 100% / 100% 1px no-repeat;
+  padding-bottom: 0.12em;
+  transition: color 0.3s;
+}
+
+@media (hover: hover) {
+  .contact__email:hover {
+    color: var(--brasa);
+  }
+}
+
+.contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* Vão do sobrenome 3D. */
+.contact__word {
+  /* A altura nunca passa de um terço da janela; a largura acompanha a proporção. */
+  width: min(100%, 33svh * var(--word-aspect));
+  margin: clamp(0.5rem, 2svh, 1.5rem) auto clamp(0.75rem, 2svh, 1.25rem);
+  container-type: inline-size;
+  /* O texto alternativo fica oculto com a cena 3D ativa e não pode esticar a página. */
+  overflow: clip;
+}
+
+.contact__word-text {
+  display: block;
+  font-size: calc(100cqw / var(--word-em));
+  line-height: var(--word-cap);
+  letter-spacing: var(--word-tracking);
+  white-space: nowrap;
+  color: transparent;
+  background: linear-gradient(to bottom, var(--carmim) 15%, var(--vinho) 80%, #140306 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.has-gl .contact__word-text {
+  visibility: hidden;
+}
+
+.contact__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--fio);
+  font-size: var(--step--1);
+  color: var(--cinza);
+}
+
+.contact__foot .link {
+  color: var(--osso);
+}
+
+@media (max-width: 640px) {
+  .contact__made {
+    display: none;
+  }
+
+  .contact__lead {
+    font-size: var(--step-0);
+  }
+}
+
+/* Telas muito baixas: o encerramento volta ao fluxo normal para nada ficar inalcançável. */
+@media (max-height: 620px) {
+  .contact {
+    position: relative;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .contact__inner {
+    opacity: 1;
+    transform: none;
+  }
+}

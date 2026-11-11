@@ -1,0 +1,187 @@
+/*
+ * Trajetória e encerramento dividem um contêiner: a Trajetória (opaca) passa
+ * por cima do Contato, que fica preso ao fundo da janela e é revelado.
+ */
+.outro {
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.journey {
+  z-index: 2;
+  padding-block: var(--section-y);
+}
+
+/* Bordas suaves: a cena some e ressurge de dentro do escuro. */
+.journey::before,
+.journey::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 11svh;
+  pointer-events: none;
+}
+
+.journey::before {
+  bottom: 100%;
+  background: linear-gradient(to top, var(--breu), rgba(6, 4, 5, 0));
+}
+
+.journey::after {
+  top: 100%;
+  background: linear-gradient(to bottom, var(--breu), rgba(6, 4, 5, 0));
+}
+
+.journey__timeline {
+  --year-col: clamp(7rem, 26vw, 24rem);
+
+  position: relative;
+  margin-top: clamp(3rem, 9vh, 6rem);
+}
+
+.journey__list {
+  display: grid;
+}
+
+/* Espinha: o fio fino é o trajeto; o preenchimento carmim é o progresso. */
+.journey__spine {
+  position: absolute;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  left: calc(var(--year-col) + var(--gap));
+  width: 1px;
+  background: var(--fio);
+}
+
+.journey__spine-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--carmim);
+  transform-origin: center top;
+}
+
+.journey__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--year-col) minmax(0, 1fr);
+  column-gap: calc(var(--gap) * 2);
+  align-items: start;
+  padding-block: clamp(1.75rem, 5vh, 3.25rem);
+}
+
+.journey__when {
+  font-size: clamp(2rem, 6.4vw, 6rem);
+  text-align: right;
+  color: var(--vinho);
+  transition: color 0.8s var(--ease-out);
+}
+
+.journey__item[data-on='true'] .journey__when {
+  color: var(--osso);
+}
+
+.journey__dot {
+  position: absolute;
+  left: calc(var(--year-col) + var(--gap));
+  top: calc(clamp(1.75rem, 5vh, 3.25rem) + clamp(0.6rem, 2.2vw, 2.1rem));
+  width: 0.7rem;
+  height: 0.7rem;
+  margin: -0.35rem 0 0 calc(-0.35rem + 0.5px);
+  border: 1px solid var(--fio-forte);
+  border-radius: 50%;
+  background: var(--breu);
+  transition:
+    background-color 0.5s,
+    border-color 0.5s,
+    transform 0.7s var(--ease-out);
+}
+
+.journey__item[data-on='true'] .journey__dot {
+  background: var(--brasa);
+  border-color: var(--brasa);
+  transform: scale(1.25);
+}
+
+.journey__what {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 36rem;
+  opacity: 0.4;
+  transition: opacity 0.8s var(--ease-out);
+}
+
+.journey__item[data-on='true'] .journey__what {
+  opacity: 1;
+}
+
+.journey__title {
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.journey__merit {
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  margin-right: 0.45em;
+  vertical-align: 0.08em;
+  color: var(--brasa);
+}
+
+.journey__place {
+  color: var(--areia);
+}
+
+.journey__detail {
+  color: var(--cinza);
+  text-wrap: pretty;
+}
+
+.journey__steps {
+  display: grid;
+  margin-top: 0.9rem;
+}
+
+.journey__steps li {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 0.7rem;
+  border-top: 1px solid var(--fio);
+}
+
+.journey__step-when {
+  font-size: var(--step--1);
+  color: var(--cinza);
+  padding-top: 0.15em;
+}
+
+@media (max-width: 640px) {
+  .journey__timeline {
+    --year-col: 0px;
+  }
+
+  .journey__spine {
+    left: 0.35rem;
+  }
+
+  .journey__item {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.5rem;
+    padding-left: 1.75rem;
+  }
+
+  .journey__when {
+    font-size: var(--step-3);
+    text-align: left;
+  }
+
+  .journey__dot {
+    left: 0.35rem;
+    top: calc(clamp(1.75rem, 5vh, 3.25rem) + 1.1rem);
+  }
+}

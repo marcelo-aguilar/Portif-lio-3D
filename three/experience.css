@@ -1,0 +1,16 @@
+/*
+ * O canvas ocupa a janela inteira, atrás de todo o conteúdo.
+ * A altura usa a maior janela possível (lvh): em celulares a barra de
+ * endereço aparece e some sem redimensionar o canvas.
+ */
+.experience {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-canvas);
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  background: var(--breu);
+  pointer-events: none;
+}
