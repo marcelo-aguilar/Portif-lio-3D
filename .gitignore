@@ -1,0 +1,16 @@
+node_modules
+dist
+dist-ssr
+*.local
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Vercel
+.vercel
+
+# Originais pessoais (selfie e capturas): ficam só na máquina local
+scripts/portrait/*.png
+scripts/capturas/
