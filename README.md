@@ -138,14 +138,5 @@ mkdir -p /tmp/retrato/proc && cp scripts/portrait/selfie_*.png /tmp/retrato/proc
 - Build de produção servido localmente: nenhum recurso quebrado. O console mostra apenas um aviso de
   depreciação (`THREE.Clock`) emitido internamente pelo React Three Fiber.
 
-## Pendências
-
-- **Experiência profissional, formação e prêmios no LinkedIn** estão vazios no perfil; foram usados o
-  "Sobre", as publicações dos projetos e o currículo. Quando houver um estágio, ele entra em
-  `src/content/journey.ts`.
-- **Retrato**: a selfie original corta o rosto à esquerda; a borda foi tratada como sombra. Uma foto
-  com mais margem lateral melhoraria o herói.
-- **Imagem de compartilhamento** (`og:image`) ainda não foi criada.
-- Não houve teste em celular físico (toque e desempenho real); os tamanhos de celular foram simulados.
 - O chunk da cena 3D tem cerca de 950 kB (255 kB com gzip); ele é carregado depois do conteúdo.
 - O projeto não tem testes automatizados nem repositório git.
